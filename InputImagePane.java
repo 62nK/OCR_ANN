@@ -37,7 +37,7 @@ public class InputImagePane extends Pane implements Constants {
         getChildren().add(imageViewCharacter);
     }
     public void randomGenerator(){
-        char sampleID = (char)((int)(Math.random()*26)+'A');
+        char sampleID = (char)((int)(Math.random()*(TERMINAL_CHAR-INITIAL_CHAR+1))+INITIAL_CHAR);
         int imageID = (int) (Math.random()*1016);
         BufferedImage bufferedImageSample = null;
         try {
@@ -60,7 +60,8 @@ public class InputImagePane extends Pane implements Constants {
             int row = index/width;
             int col = index%width;
             java.awt.Color color = new java.awt.Color(image.getRGB(col, row));
-            result[index] =((color.getRed()+color.getGreen()+color.getBlue())/3.0-128);
+            boolean brightPixel = (color.getRed()+color.getGreen()+color.getBlue())/3.0>128;
+            result[index] = brightPixel?5.0:-5.0;
         }
 
         return result;

@@ -4,7 +4,7 @@ public interface Constants {
     // Neuron Configuration
     int LAYER_COUNT = 3;
     int INPUT_LAYER_NEURON_COUNT = 1024;
-    int HIDDEN_LAYER_NEURON_COUNT = 32;
+    int HIDDEN_LAYER_NEURON_COUNT = 664;
     int OUTPUT_LAYER_NEURON_COUNT = 26;
 
     /** FLAGS **/
@@ -25,4 +25,11 @@ public interface Constants {
     double IMAGE_SIZE = 200;
     double HEIGHT = 315;
     double WIDTH = 465;
+
+    // Training Set Size
+    char INITIAL_CHAR = 'A';
+    char TERMINAL_CHAR = 'Z';
+    int TRAINING_SET_SIZE = 1016;
+    int TEST_SET_SIZE = 100;
+
 }

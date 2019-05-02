@@ -48,11 +48,11 @@ public class TestANN extends Application implements Constants {
         // Input
         ArrayList<InputTargetPair> trainingSet = new ArrayList<>();
         {
-            for(char sampleID='A'; sampleID<='Z'; sampleID++) {
+            for(char sampleID=INITIAL_CHAR; sampleID<=TERMINAL_CHAR; sampleID++) {
                 double[] target = new double[26];
                 target[sampleID-'A']=1;
 
-                for (int imageID = 1; imageID <= 10; imageID++) {
+                for (int imageID = 1; imageID <= TRAINING_SET_SIZE; imageID++) {
                     BufferedImage bufferedImageSample = null;
                     try {
                         bufferedImageSample = ImageIO.read(new File("src/sample/img"+sampleID+"-"+ imageID + ".png"));
@@ -67,24 +67,23 @@ public class TestANN extends Application implements Constants {
         }
         Collections.shuffle(trainingSet);
         ArrayList<InputTargetPair> testSet = new ArrayList<>();
-//        {
-//            for(char sampleID='A'; sampleID<='Z'; sampleID++) {
-//                double[] target = new double[26];
-//                target[sampleID-'A']=1;
-//
-//                for (int imageID = 501; imageID <= 1000; imageID++) {
-//                    BufferedImage bufferedImageSample = null;
-//                    try {
-//                        bufferedImageSample = ImageIO.read(new File("src/sample/img"+sampleID+"-"+ imageID + ".png"));
-//                    } catch (IOException e) {
-//                        break;
-//                    }
-//                    double[] inputArray = InputImagePane.convertToArray(bufferedImageSample);
-//                    testSet.add(new InputTargetPair(inputArray, target));
-//                }
-//            }
-//            if(DEBUG) System.out.println(testSet.size()+" samples successfully imported to test set");
-//        }
+        {
+            for(char sampleID=INITIAL_CHAR; sampleID<=TERMINAL_CHAR; sampleID++) {
+                double[] target = new double[26];
+                target[sampleID-'A']=1;
+                for (int imageID = 1016; imageID >= 1016- TEST_SET_SIZE; imageID--) {
+                    BufferedImage bufferedImageSample = null;
+                    try {
+                        bufferedImageSample = ImageIO.read(new File("src/sample/img"+sampleID+"-"+ imageID + ".png"));
+                    } catch (IOException e) {
+                        break;
+                    }
+                    double[] inputArray = InputImagePane.convertToArray(bufferedImageSample);
+                    testSet.add(new InputTargetPair(inputArray, target));
+                }
+            }
+            if(DEBUG) System.out.println(testSet.size()+" samples successfully imported to test set");
+        }
 
         artificialNeuralNetwork = new NeuralNetwork(layerCount, inputLayerNeuronCount, hiddenLayerNeuronCount, outputLayerNeuronCount);
 
@@ -175,7 +174,7 @@ public class TestANN extends Application implements Constants {
         // Put the pane on the scene and the scene on the stage
         Scene scene = new Scene(borderPane, WIDTH, Constants.HEIGHT);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Artificial Neural Network Dark/Bright detection with Simulated Annealing - Andrea Pinardi");
+        primaryStage.setTitle("OCR with Artificial Neural Network - Andrea Pinardi");
         primaryStage.show();
     }
 
